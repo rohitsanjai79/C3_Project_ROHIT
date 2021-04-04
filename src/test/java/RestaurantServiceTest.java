@@ -30,6 +30,21 @@ class RestaurantServiceTest {
         assertThrows(restaurantNotFoundException.class,()->{service.findRestaurantByName("ramu's cafe");});
     }
     //<<<<<<<<<<<<<<<<<<<<SEARCHING>>>>>>>>>>>>>>>>>>>>>>>>>>
+    //>>>>>>>>>>>>>>>>>>>>>>TOTAL COST CALCULATION<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    @Test
+    public void when_individual_order_is_selected_then_the_total_of_order_should_be_returned(){
+        initalSettingUp();
+        List<Item> itemsSelected = restaurant.getMenu();
+        assertEquals(388,restaurant.orderTotalCost(itemsSelected));
+    }
+    @Test
+    public void when_individual_item_from_order_is_removed_recalculate_total_of_order_should_be_returned(){
+        initalSettingUp();
+        List<Item> itemsSelected = restaurant.getMenu();
+        itemsSelected.remove(1);
+        assertEquals(119,restaurant.orderTotalCost(itemsSelected));
+    }
+    //<<<<<<<<<<<<<<<<<<<<TOTAL COST CALCULATION>>>>>>>>>>>>>>>>>>>>>>>>>>
     //>>>>>>>>>>>>>>>>>>>>>>ADMIN: ADDING & REMOVING RESTAURANTS<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     @Test
     public void remove_restaurant_should_reduce_list_of_restaurants_size_by_1() throws restaurantNotFoundException {
